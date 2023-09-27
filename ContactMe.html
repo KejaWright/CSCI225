@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Contact Me</title>
+        <meta charset="UTF-8">
+
+    </head>
+    <body>
+        <div class="video">
+            <h1>One of my Favorite Animations</h1>
+            <iframe src="https://www.youtube.com/embed/89RbPDGDkfo?si=Y6J0OlRYgKXdXzUo" frameborder="0" width="854" height="480"></iframe>
+        </div>
+        <div class="form">
+            <form action=""><!--1st form-->
+                <fieldset><legend>Feedback</legend>
+                    <p>First Name: <input type="text" name="fname" placeholder="anonymous" required></p>
+                    <p>Last Name: <input type="text" name="lname" placeholder="anonymous" required></p>
+                    <p>Email: <input type="email" name="mail" placeholder="name@domain.com"><i>  Setup ex: name@domain.com</i></p>
+                    <p><b>Will you recommend this site?: </b>
+                        Yes<input type="radio" name="recommend site" value="Yes">
+                        No<input type="radio" name="recommend site" value="No">
+                    </p>
+                    <p>Favorite Site: 
+                        <select size="1" name="favesite">
+                            <option value="Youtube">Youtube</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Snapchat">Snapchat</option>
+                            <option value="TikTok">TikTok</option>
+                        </select>
+                    </p>
+                    <p>Rate Website on a Scale of 1-10: 
+                        1<input type="range" name="rating" min="1" max="10">10
+                    </p>
+                    <p>Additional Comments
+                        <textarea name="comment" cols="60" rows="2" placeholder="additional comments......"></textarea>
+                    </p>
+                    <p><input type="reset" value="clear form"> <u> This will clear the form be careful.</u></p>
+                    <p><input type="submit" value="sumbit"></p>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+    </html>
