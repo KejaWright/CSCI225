@@ -3,42 +3,64 @@
     <head>
         <title>Contact Me</title>
         <meta charset="UTF-8">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--bootstrap css-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
+
     <body>
-        <div class="video">
-            <h1>One of my Favorite Animations</h1>
-            <iframe src="https://www.youtube.com/embed/89RbPDGDkfo?si=Y6J0OlRYgKXdXzUo" frameborder="0" width="854" height="480"></iframe>
-        </div>
-        <div class="form">
-            <form action=""><!--1st form-->
-                <fieldset><legend>Feedback</legend>
-                    <p>First Name: <input type="text" name="fname" placeholder="anonymous" required></p>
-                    <p>Last Name: <input type="text" name="lname" placeholder="anonymous" required></p>
-                    <p>Email: <input type="email" name="mail" placeholder="name@domain.com"><i>  Setup ex: name@domain.com</i></p>
-                    <p><b>Will you recommend this site?: </b>
-                        Yes<input type="radio" name="recommend site" value="Yes">
-                        No<input type="radio" name="recommend site" value="No">
-                    </p>
-                    <p>Favorite Site: 
-                        <select size="1" name="favesite">
-                            <option value="Youtube">Youtube</option>
-                            <option value="Twitter">Twitter</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="Snapchat">Snapchat</option>
-                            <option value="TikTok">TikTok</option>
-                        </select>
-                    </p>
-                    <p>Rate Website on a Scale of 1-10: 
-                        1<input type="range" name="rating" min="1" max="10">10
-                    </p>
-                    <p>Additional Comments
-                        <textarea name="comment" cols="60" rows="2" placeholder="additional comments......"></textarea>
-                    </p>
-                    <p><input type="reset" value="clear form"> <u> This will clear the form be careful.</u></p>
-                    <p><input type="submit" value="sumbit"> Sumbit your answers.</p>
-                </fieldset>
-            </form>
-        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">       
+                    <div class="navbar" id="nav-sec">
+                        <ul>
+                            <li><a href="https://www.usca.edu/" target ="_blank"> USCA Homepage</a></li>
+                            <li><a href="#assignment">Assignment</a></li>
+                            <li><a href="#Contact_Information">Contact Information</a></li>
+                            <li><a href="http://randomcolour.com/" target ="_blank">Random Color Website</a></li>
+                            <li><a href="https://chrismckenzie.com/" target ="_blank">Little Happy Cube</a></li>
+                        </ul>
+                    </div> <!--creates a divider-->
+                </div>
+            </div>
+       
+                    <div class="video">
+                        <h1>One of my Favorite Animations</h1>
+                        <iframe src="https://www.youtube.com/embed/89RbPDGDkfo?si=Y6J0OlRYgKXdXzUo" frameborder="0" width="854" height="480"></iframe>
+                    </div>
+                    <div class="form">
+                        <form action=""><!--1st form-->
+                            <fieldset><legend>Feedback</legend>
+                                <p>First Name: <input type="text" name="fname" placeholder="anonymous" required></p>
+                                <p>Last Name: <input type="text" name="lname" placeholder="anonymous" required></p>
+                                <p>Email: <input type="email" name="mail" placeholder="name@domain.com"><i>  Setup ex: name@domain.com</i></p>
+                                <p><b>Will you recommend this site?: </b>
+                                    Yes<input type="radio" name="recommend site" value="Yes">
+                                    No<input type="radio" name="recommend site" value="No">
+                                </p>
+                                <p>Favorite Site: 
+                                    <select size="1" name="favesite">
+                                        <option value="Youtube">Youtube</option>
+                                        <option value="Twitter">Twitter</option>
+                                        <option value="Instagram">Instagram</option>
+                                        <option value="Snapchat">Snapchat</option>
+                                        <option value="TikTok">TikTok</option>
+                                    </select>
+                                </p>
+                                <p>Rate Website on a Scale of 1-10: 
+                                    1<input type="range" name="rating" min="1" max="10">10
+                                </p>
+                                <p>Additional Comments
+                                    <textarea name="comment" cols="60" rows="2" placeholder="additional comments......"></textarea>
+                                </p>
+                                <p><input type="reset" value="clear form"> <u> This will clear the form be careful.</u></p>
+                                <p><input type="submit" value="sumbit"> Sumbit your answers.</p>
+                            </fieldset>
+                        </form>
+                    </div><!--form div end--> 
+        </div><!--container div end-->
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
+
     </html>
