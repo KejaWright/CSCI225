@@ -9,37 +9,60 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="container-fluid bg-success">
             <div class="row">
                 <div class="col">       
-                    <div class="navbar" id="nav-sec">
-                        <ul>
-                            <li><a href="https://www.usca.edu/" target ="_blank"> USCA Homepage</a></li>
-                            <li><a href="#assignment">Assignment</a></li>
-                            <li><a href="#Contact_Information">Contact Information</a></li>
-                            <li><a href="http://randomcolour.com/" target ="_blank">Random Color Website</a></li>
-                            <li><a href="https://chrismckenzie.com/" target ="_blank">Little Happy Cube</a></li>
+                    <div class="navbar navbar-expand-lg bg-dark" id="nav-sec">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link text-white px-2 fw-bolder" href="https://www.usca.edu/" target ="_blank"> USCA Homepage</a></li>
+                            <li class="nav-item"><a class="nav-link text-white px-2 fw-bolder" href="#assignment">Assignment</a></li>
+                            <li class="nav-item"><a class="nav-link text-white px-2 fw-bolder" href="#Contact_Information">Contact Information</a></li>
+                            <li class="nav-item"><a class="nav-link text-white px-2 fw-bolder" href="http://randomcolour.com/" target ="_blank">Random Color Website</a></li>
+                            <li class="nav-item"><a class="nav-link text-white px-2 fw-bolder" href="https://chrismckenzie.com/" target ="_blank">Little Happy Cube</a></li>
                         </ul>
                     </div> <!--creates a divider-->
                 </div>
             </div>
-       
+            <div class="row">
+                <div class="col-7">
                     <div class="video">
-                        <h1>One of my Favorite Animations</h1>
-                        <iframe src="https://www.youtube.com/embed/89RbPDGDkfo?si=Y6J0OlRYgKXdXzUo" frameborder="0" width="854" height="480"></iframe>
+                        <h1 class="fst-italic fw-bold">One of my Favorite Animations</h1>
+                        <iframe src="https://www.youtube.com/embed/89RbPDGDkfo?si=Y6J0OlRYgKXdXzUo" style="border-radius:20px" frameborder="0" width="600" height="400"></iframe>
                     </div>
-                    <div class="form">
+                </div><!--row 2 col one endend-->
+                <div class="col-5">
+                    <div class="form-group">
                         <form action=""><!--1st form-->
-                            <fieldset><legend>Feedback</legend>
-                                <p>First Name: <input type="text" name="fname" placeholder="anonymous" required></p>
-                                <p>Last Name: <input type="text" name="lname" placeholder="anonymous" required></p>
-                                <p>Email: <input type="email" name="mail" placeholder="name@domain.com"><i>  Setup ex: name@domain.com</i></p>
+                            <fieldset><legend class="fst-italic">Feedback</legend>
+                                <!--name-->
+                                <div class="form-group">
+                                <label for="fname">First Name: <input type="text" name="fname" placeholder="anonymous" class="form-control" id="fname" required></p></label>
+                                <label for="lname">Last Name: <input type="text" name="lname" placeholder="anonymous" class="form-control" id="lname" required></p></label>
+                                </div>
+
+                                <!--email-->
+                                <div class="form-group">
+                                <label for="email"> Email: <input type="email" id="email" placeholder="name@domain.com" class="form-control"><i>  Setup ex: name@domain.com</i></p></label>
+                                </div>
+
+                                <!--password>-->
+                                <div class="form-group">
+                                    <label for="ppassword">Password: <input type="password" id="ppassword" class="form-control" aria-describedby="passwordHelpBlock"></p></label>
+                                <small id="passwordHelpBlock" class="form-text text-muted"> Your password must be 10 characters long</small>
+                                </div>
+
+                                <!--radio-->
+                                <div class="form-group">
                                 <p><b>Will you recommend this site?: </b>
-                                    Yes<input type="radio" name="recommend site" value="Yes">
-                                    No<input type="radio" name="recommend site" value="No">
+                                    <label>Yes<input type="radio" name="recommend site" class="form-check-input" value="Yes"></label>
+                                    <label>No<input type="radio" name="recommend site" class="form-check-input" value="No"></label>
                                 </p>
+                                </div>
+
+                                <!--fav size-->
+                                <div class="form-group">
                                 <p>Favorite Site: 
-                                    <select size="1" name="favesite">
+                                    <select size="1" name="favesite" class="form-control">
                                         <option value="Youtube">Youtube</option>
                                         <option value="Twitter">Twitter</option>
                                         <option value="Instagram">Instagram</option>
@@ -47,17 +70,32 @@
                                         <option value="TikTok">TikTok</option>
                                     </select>
                                 </p>
+                                </div>
+
+                                <!--range-->
+                                <div class="form-group mb-3">
                                 <p>Rate Website on a Scale of 1-10: 
-                                    1<input type="range" name="rating" min="1" max="10">10
+                                    1<input type="range" class="form-range" name="rating" min="1" max="10">10
                                 </p>
+                                </div>
+
+                                <!--additional comments-->
+                                <div class="form-group">
                                 <p>Additional Comments
                                     <textarea name="comment" cols="60" rows="2" placeholder="additional comments......"></textarea>
                                 </p>
-                                <p><input type="reset" value="clear form"> <u> This will clear the form be careful.</u></p>
-                                <p><input type="submit" value="sumbit"> Sumbit your answers.</p>
+                                </div>
+
+                                <!--sumbit reset-->
+                                <div class="form-group">
+                                <label for="reset"><input type="reset" value="clear form" class="bg-danger form-control-sm" id="reset"></p></label>
+                                <label for="submit"><input type="submit" value="sumbit" class="bg-primary form-control-sm" id="submit"> Sumbit your answers.</p>
+                                </div>
                             </fieldset>
                         </form>
-                    </div><!--form div end--> 
+                    </div><!--form div end-->
+                </div><!--row 2 col 2 end end-->
+            </div><!--Row 2 end-->
         </div><!--container div end-->
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
