@@ -17,20 +17,19 @@
                         <form class="text-white">
                             <h1 class="text-center">Power Bill Calculator</h1>
                             <p class="fst-italic fw-bold text-center">The utility bill calc is a resource that the Commission is making
-                                available that allows a consumer to check the accuracy of your
-                                monthly electric bill. A bill calc has been prepared for customers
-                                of the USCA Power Company.
+                                available that allows a consumer to check the accuracy of your monthly electric bill. A bill calc has been 
+                                prepared for customers of the USCA Power Company.
                             </p>
                             <p>Effective August 2023</p>
                             <p>
 
                             </p>
-                            <p>Enter your Monthly Usage in kilowatt hours (kWh): <input type="text" name="monkWh" id="k.W.h"></p>
-                            <p>Enter the number of days for your current billing period: <input type="text" name="days" id="days"></p>
-                            <p>Is your residence INSIDE the city limits of your city: <input type="checkbox" name="cityLim" id="cityLim"></p>
-                            <p>Is this a summer month (June - September)? <input type="checkbox" name="summer" id="summer"></p>
+                            <p>Enter your Monthly Usage in kilowatt hours (kWh): <input type="text" name="monkWh" id="kwh"></p>
+                            <p>Enter the number of days for your current billing period: <input type="text" name="days" id="day"></p>
+                            <p>Is your residence INSIDE the city limits of your city: <input type="checkbox" name="cityLim" id="cl"></p>
+                            <p>Is this a summer month (June - September)? <input type="checkbox" name="summer" id="month"></p>
                             <p>Enter Sales Tax(%): <input type="text" name="salesTax" id="tax"></p>
-                            <input type="button" name="submit" value="Submit" id="sumbit" class="bg-success border rounded-4" onclick="calculate();">
+                            <input type="button" name="submit" value="Submit" id="sumbit" class="bg-success border rounded-4" onclick="calc();">
                             <input type="reset" name="reset" class="bg-success border rounded-4" id="reset">
                         </form>
                     </div>
@@ -39,208 +38,108 @@
                     <div class="calc border border-4 border-success rounded-4">
                         <h1 class="text-white text-center">Details of your bill</h1>
                         <script>
-                            //calculation
-                            function calculate(){
+                            //calculations
+                            function calc(){
+                                //getting data
                                 console.log("hello");
-                                var kwh = parseFloat(document.getElementById("k.W.h").value);
-                                var day = parseFloat(document.getElementById("days").value);
-                                var incity = document.getElementById("cityLim").checked;
-                                var month = document.getElementById("summer").checked;
+                                var kwh = parseFloat(document.getElementById("kwh").value);
+                                var day = parseFloat(document.getElementById("day").value);
+                                var cl = document.getElementById("cl").checked;
+                                var month = document.getElementById("month").checked;
                                 var tax = parseFloat(document.getElementById("tax").value);
-                                var baseCharge = .4603*day;
-                                document.getElementById("bc").innerHTML = "$"+baseCharge.toFixed(2);
 
-                                //for summer
+                                //actual calculations
+                                console.log("calc");
+                                var bc = 0.4603*day;
+                                document.getElementById("bc").innerHTML = "$"+bc.toFixed(2);
+                                var T1 = 0, T2 = 0, T3 = 0;
+                                
                                 if (month == true){
-                                    console.log("month true");
-                                    var srT1 = kwh*0.066678;
-                                    document.getElementById("t1").innerHTML = "$" +srT1.toFixed(2);
-                                    if (kwh > 650){
-                                        var srT2 = (kwh-650)*0.110748;
-                                        document.getElementById("t2").innerHTML = "$"+srT2.toFixed(2);
-                                        if(kwh>1000){
-                                            var srT3 = (kwh-650-350)*0.114625;
-                                            document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
-                                        }
-                                        else{
-                                            var srT3 = 0;
-                                            document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
-                                        }
-                                    }
-                                    else{
-                                        var srT2 = 0;
-                                        var srT3 = 0;
-                                        document.getElementById("t2").innerHTML = "$"+srT2.toFixed(2);
-                                        document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
-                                    }
-                                    
-                                    var sumbaseRev = baseCharge+srT1+srT2+srT3;
-                                    document.getElementById("br").innerHTML = "$"+srT2.toFixed(2);
-                                    var sumfcr = kwh*0.045876;
-                                    document.getElementById("f.c.r").innerHTML = "$"+srT2.toFixed(2);
-                                    var sumDs = sumbaseRev*0.015989;
-                                    document.getElementById("dsm").innerHTML = "$"+srT2.toFixed(2);
-                                    var sumN = sumbaseRev*0.041562;
-                                    document.getElementById("nccrr").innerHTML = "$"+srT2.toFixed(2);
-                                    var sumEC = sumbaseRev*0.162813;
-                                    document.getElementById("eccrr").innerHTML = "$"+srT2.toFixed(2);
-                                    var sumtotrev = sumbaseRev+sumfcr+sumDs+sumN+sumEC;
-                                    document.getElementById("tr").innerHTML = "$"+srT2.toFixed(2);
-                                    if(incity == true){
-                                        console.log("check sum");
-                                        var sumFF = sumtotrev* 0.030674;
-                                        document.getElementById("fee").innerHTML = "$"+srT2.toFixed(2);
-                                        var sumtot = sumFF + sumtotrev;
-                                        document.getElementById("tot").innerHTML = "$"+sumtot.toFixed(2);
-                                        var summtot = sumtot + tax;
-                                        document.getElementById("maintot").innerHTML = "$"+summtot.toFixed(2);
-                                        if (summtot >500){
-                                            console.log("Link")
-                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
-                                        }
-                                    }
-                                    if(incity == false){
-                                        console.log("uncheck sum");
-                                        var sumFF = sumtotrev*0.011839;
-                                        document.getElementById("fee").innerHTML = "$"+sumFF.toFixed(2);
-                                        var sumtot = sumFF + sumtotrev;
-                                        document.getElementById("tot").innerHTML = "$"+sumtot.toFixed(2);
-                                        var summtot = sumtot + tax;
-                                        document.getElementById("maintot").innerHTML = "$"+summtot.toFixed(2);
-                                        if (summtot >500){
-                                            console.log("Link")
-                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
-                                        }
-                                    }
-
+                                    console.log("Summer");
+                                    T1 = kwh <=650 ? kwh*0.066678: 650*0.066678;
+                                    T2 = kwh >650 & kwh <1000 ? (kwh-650)*0.11078: T2;
+                                    T3 = kwh >1000 ? (kwh-650-350)*0.114625: T3, T2=(kwh-650)*0.11078;
                                 }
-                                //for winter
                                 else{
-                                    console.log("month false");
-                                    var wrT1 = kwh*0.062404;
-                                    document.getElementById("t1").innerHTML = "$"+wrT1.toFixed(2);
-                                    if (kwh > 650){
-                                        var wrT2 = (kwh-650)*0.062404;
-                                        document.getElementById("t2").innerHTML = "$"+wrT2.toFixed(2);
-                                        if(kwh>1000){
-                                            var wrT3 = (kwh-650-350)*0.062404;
-                                            document.getElementById("t2").innerHTML = "$"+wrT3.toFixed(2);
-                                        }
-                                        else{
-                                            var wrT3 = 0;
-                                            document.getElementById("t3").innerHTML = "$"+wrT3.toFixed(2);
-                                        }
-                                    }
-                                    else{
-                                        var wrT2 = 0;
-                                        document.getElementById("t2").innerHTML = "$"+wrT2.toFixed(2);
-                                        var wrT3 = 0;
-                                        document.getElementById("t3").innerHTML = "$"+wrT3.toFixed(2);
-                                    }
-                                    
-                                    var winbaseRev = baseCharge+wrT1+wrT2+wrT3;
-                                    document.getElementById("br").innerHTML = "$"+winbaseRev.toFixed(2);
-                                    var winfcr = kwh*0.042859;
-                                    document.getElementById("f.c.r").innerHTML = "$"+winfcr.toFixed(2);
-                                    var winDs = winbaseRev*0.015989;
-                                    document.getElementById("dsm").innerHTML = "$"+winDs.toFixed(2);
-                                    var winN = winbaseRev*0.041562;
-                                    document.getElementById("nccrr").innerHTML = "$"+winN.toFixed(2);
-                                    var winEC = winbaseRev*0.1628139;
-                                    document.getElementById("eccrr").innerHTML = "$"+winEC.toFixed(2);
-                                    var wintotrev = winbaseRev+winfcr+winDs+winN+winEC;
-                                    document.getElementById("tr").innerHTML = "$"+wintotrev.toFixed(2);
-                                    if(incity == true){
-                                        var winFF = wintotrev* 0.030674;
-                                        document.getElementById("fee").innerHTML = "$"+winFF.toFixed(2);
-                                        var wintot = winFF + wintotrev;
-                                        document.getElementById("tot").innerHTML = "$"+wintot.toFixed(2);
-                                        var winmtot = wintot + tax;
-                                        document.getElementById("maintot").innerHTML = "$"+winmtot.toFixed(2);
-                                        if (winmtot >500){
-                                            console.log("Link")
-                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
-                                        }
-                                    }
-                                    if(incity == false){
-                                        var winFF = wintotrev*0.011839;
-                                        document.getElementById("fee").innerHTML = "$"+winFF.toFixed(2);
-                                        var wintot = winFF + wintotrev;
-                                        document.getElementById("tot").innerHTML = "$"+wintot.toFixed(2);
-                                        var winmtot = wintot + tax;
-                                        document.getElementById("maintot").innerHTML = "$"+winmtot.toFixed(2);
-                                        if (winmtot >500){
-                                            console.log("Link")
-                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
-                                        }
-                                    }
+                                    console.log("Winter");
+                                    T1 = kwh <=650 ? kwh*0.062404: 650*0.062404;
+                                    T2 = kwh >650 & kwh <1000 ? (kwh-650)*0.062404: T2;
+                                    T3 = kwh >1000 ? (kwh-650-350)*0.062404: T3, T2=(kwh-650)*0.062404;
+                                }
+                                document.getElementById("t1").innerHTML = "$" +T1.toFixed(2);
+                                document.getElementById("t2").innerHTML = "$"+T2.toFixed(2);
+                                document.getElementById("t3").innerHTML = "$"+T3.toFixed(2);
+                                var br = bc+T1+T2+T3;
+                                var fcr = month == true ? kwh*0.045876: kwh*0.042859;
+                                var dsm = br*0.015989;
+                                var nccrr = br*0.041562;
+                                var eccrr = br*0.162813;
+                                var TR = br+fcr+dsm+nccrr+eccrr;
+                                var fee = cl == true ? TR*0.030674: TR*0.011839;
+                                var tot = TR+fee;
+                                var maintot = tot+tax;
+                                document.getElementById("br").innerHTML = "$"+br.toFixed(2);
+                                document.getElementById("f.c.r").innerHTML = "$"+fcr.toFixed(2);
+                                document.getElementById("dsm").innerHTML = "$"+dsm.toFixed(2);
+                                document.getElementById("nccrr").innerHTML = "$"+nccrr.toFixed(2);
+                                document.getElementById("eccrr").innerHTML = "$"+eccrr.toFixed(2);
+                                document.getElementById("tr").innerHTML = "$"+TR.toFixed(2);
+                                document.getElementById("fee").innerHTML = "$"+fee.toFixed(2);
+                                document.getElementById("tot").innerHTML = "$"+tot.toFixed(2);
+                                document.getElementById("maintot").innerHTML = "$"+maintot.toFixed(2);
+                                if (maintot > 500){
+                                    console.log("Link");
+                                    window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
                                 }
                             }
                         </script>
-
                         <table class= "table table-dark table-striped text-wrap"style="width: 35rem; margin-left:auto; margin-right:auto;"><!--start of table-->
                             <tr>
-                                <td>Items</td>
-                                <td>Fees</td>
+                                <td>Items</td> <td>Fees</td>
                             </tr>
                             <tr>
-                                <td>Base charge: </td>
-                                <td><label id="bc">?</label></td>
+                                <td>Base charge: </td> <td><label id="bc">?</label></td>
                             </tr>
                             <tr>
-                                <td>Tier 1 Component (kWh): </td>
-                                <td><label id="t1">?</label></td>
+                                <td>Tier 1 Component (kWh): </td> <td><label id="t1">?</label></td>
                             </tr>
                             <tr>
-                                <td>Tier 2 Component (kWh):</td> 
-                                <td><label id="t2">?</label></td>
+                                <td>Tier 2 Component (kWh):</td> <td><label id="t2">?</label></td>
                             </tr>
                             <tr>
-                                <td>Tier 3 Component (kWh): </td>
-                                <td><label id="t3">?</label></td>
+                                <td>Tier 3 Component (kWh): </td> <td><label id="t3">?</label></td>
                             </tr>
                             <tr>
-                                <td>Base Revenue--Base Bill Subtotal: </td>
-                                <td><label id="br">?</label></td>
+                                <td>Base Revenue--Base Bill Subtotal: </td> <td><label id="br">?</label></td>
                             </tr>
                             <tr>
-                                <td>Fuel Cost rider: </td>
-                                <td><label id="f.c.r">?</label></td>
+                                <td>Fuel Cost rider: </td> <td><label id="f.c.r">?</label></td>
                             </tr>
                             <tr>
-                                <td>Demand Side Management Residential Rider: </td>
-                                <td><Label id="dsm">?</Label></td>
+                                <td>Demand Side Management Residential Rider: </td> <td><Label id="dsm">?</Label></td>
                             </tr>
                             <tr>
-                                <td>Nuclear Construction Cost Recovery Rider: </td>
-                                <td><label id="nccrr">?</label></td>
+                                <td>Nuclear Construction Cost Recovery Rider: </td> <td><label id="nccrr">?</label></td>
                             </tr>
                             <tr>
-                                <td>Environmental Compliance Cost Recovery Rider: </td>
-                                <td><label id="eccrr">?</label></td>
+                                <td>Environmental Compliance Cost Recovery Rider: </td> <td><label id="eccrr">?</label></td>
                             </tr>
                             <tr>
-                                <td>Total Revenue--Current Service Subtotal: </td>
-                                <td><label id="tr">?</label></td>
+                                <td>Total Revenue--Current Service Subtotal: </td> <td><label id="tr">?</label></td>
                             </tr>
                             <tr>
-                                <td>Franchise Fee: </td>
-                                <td><label id="fee">?</label></td>
+                                <td>Franchise Fee: </td> <td><label id="fee">?</label></td>
                             </tr>
                             <tr>
-                                <td>Total(excluding tax): </td>
-                                <td><label id="tot">?</label></td>
+                                <td>Total(excluding tax): </td> <td><label id="tot">?</label></td>
                             </tr>
                             <tr>
-                                <td>TOTAL(w/tax): </td>
-                                <td><label id="maintot">?</label></td>
+                                <td>TOTAL(w/tax): </td> <td><label id="maintot">?</label></td>
                             </tr>
-                            </p>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
     </body>
 </html>
