@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Power Bill Calculator</title>
+</head>    
+    <body>
+        <div class="container-fluid bg-danger">
+            <div class="row">
+                <div class="col">
+                    <div class="form border border-4 border-success rounded-4">
+                        <form class="text-white">
+                            <h1 class="text-center">Power Bill Calculator</h1>
+                            <p class="fst-italic fw-bold text-center">The utility bill calc is a resource that the Commission is making
+                                available that allows a consumer to check the accuracy of your
+                                monthly electric bill. A bill calc has been prepared for customers
+                                of the USCA Power Company.
+                            </p>
+                            <p>Effective August 2023</p>
+                            <p>
+
+                            </p>
+                            <p>Enter your Monthly Usage in kilowatt hours (kWh): <input type="text" name="monkWh" id="k.W.h"></p>
+                            <p>Enter the number of days for your current billing period: <input type="text" name="days" id="days"></p>
+                            <p>Is your residence INSIDE the city limits of your city: <input type="checkbox" name="cityLim" id="cityLim"></p>
+                            <p>Is this a summer month (June - September)? <input type="checkbox" name="summer" id="summer"></p>
+                            <p>Enter Sales Tax(%): <input type="text" name="salesTax" id="tax"></p>
+                            <input type="button" name="submit" value="Submit" id="sumbit" class="bg-success border rounded-4" onclick="calculate();">
+                            <input type="reset" name="reset" class="bg-success border rounded-4" id="reset">
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="calc border border-4 border-success rounded-4">
+                        <h1 class="text-white text-center">Details of your bill</h1>
+                        <script>
+                            //calculation
+                            function calculate(){
+                                console.log("hello");
+                                var kwh = parseFloat(document.getElementById("k.W.h").value);
+                                var day = parseFloat(document.getElementById("days").value);
+                                var incity = document.getElementById("cityLim").checked;
+                                var month = document.getElementById("summer").checked;
+                                var tax = parseFloat(document.getElementById("tax").value);
+                                var baseCharge = .4603*day;
+                                document.getElementById("bc").innerHTML = "$"+baseCharge.toFixed(2);
+
+                                //for summer
+                                if (month == true){
+                                    console.log("month true");
+                                    var srT1 = kwh*0.066678;
+                                    document.getElementById("t1").innerHTML = "$" +srT1.toFixed(2);
+                                    if (kwh > 650){
+                                        var srT2 = (kwh-650)*0.110748;
+                                        document.getElementById("t2").innerHTML = "$"+srT2.toFixed(2);
+                                        if(kwh>1000){
+                                            var srT3 = (kwh-650-350)*0.114625;
+                                            document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
+                                        }
+                                        else{
+                                            var srT3 = 0;
+                                            document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
+                                        }
+                                    }
+                                    else{
+                                        var srT2 = 0;
+                                        var srT3 = 0;
+                                        document.getElementById("t2").innerHTML = "$"+srT2.toFixed(2);
+                                        document.getElementById("t3").innerHTML = "$"+srT3.toFixed(2);
+                                    }
+                                    
+                                    var sumbaseRev = baseCharge+srT1+srT2+srT3;
+                                    document.getElementById("br").innerHTML = "$"+srT2.toFixed(2);
+                                    var sumfcr = kwh*0.045876;
+                                    document.getElementById("f.c.r").innerHTML = "$"+srT2.toFixed(2);
+                                    var sumDs = sumbaseRev*0.015989;
+                                    document.getElementById("dsm").innerHTML = "$"+srT2.toFixed(2);
+                                    var sumN = sumbaseRev*0.041562;
+                                    document.getElementById("nccrr").innerHTML = "$"+srT2.toFixed(2);
+                                    var sumEC = sumbaseRev*0.162813;
+                                    document.getElementById("eccrr").innerHTML = "$"+srT2.toFixed(2);
+                                    var sumtotrev = sumbaseRev+sumfcr+sumDs+sumN+sumEC;
+                                    document.getElementById("tr").innerHTML = "$"+srT2.toFixed(2);
+                                    if(incity == true){
+                                        console.log("check sum");
+                                        var sumFF = sumtotrev* 0.030674;
+                                        document.getElementById("fee").innerHTML = "$"+srT2.toFixed(2);
+                                        var sumtot = sumFF + sumtotrev;
+                                        document.getElementById("tot").innerHTML = "$"+sumtot.toFixed(2);
+                                        var summtot = sumtot + tax;
+                                        document.getElementById("maintot").innerHTML = "$"+summtot.toFixed(2);
+                                        if (summtot >500){
+                                            console.log("Link")
+                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
+                                        }
+                                    }
+                                    if(incity == false){
+                                        console.log("uncheck sum");
+                                        var sumFF = sumtotrev*0.011839;
+                                        document.getElementById("fee").innerHTML = "$"+sumFF.toFixed(2);
+                                        var sumtot = sumFF + sumtotrev;
+                                        document.getElementById("tot").innerHTML = "$"+sumtot.toFixed(2);
+                                        var summtot = sumtot + tax;
+                                        document.getElementById("maintot").innerHTML = "$"+summtot.toFixed(2);
+                                        if (summtot >500){
+                                            console.log("Link")
+                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
+                                        }
+                                    }
+
+                                }
+                                //for winter
+                                else{
+                                    console.log("month false");
+                                    var wrT1 = kwh*0.062404;
+                                    document.getElementById("t1").innerHTML = "$"+wrT1.toFixed(2);
+                                    if (kwh > 650){
+                                        var wrT2 = (kwh-650)*0.062404;
+                                        document.getElementById("t2").innerHTML = "$"+wrT2.toFixed(2);
+                                        if(kwh>1000){
+                                            var wrT3 = (kwh-650-350)*0.062404;
+                                            document.getElementById("t2").innerHTML = "$"+wrT3.toFixed(2);
+                                        }
+                                        else{
+                                            var wrT3 = 0;
+                                            document.getElementById("t3").innerHTML = "$"+wrT3.toFixed(2);
+                                        }
+                                    }
+                                    else{
+                                        var wrT2 = 0;
+                                        document.getElementById("t2").innerHTML = "$"+wrT2.toFixed(2);
+                                        var wrT3 = 0;
+                                        document.getElementById("t3").innerHTML = "$"+wrT3.toFixed(2);
+                                    }
+                                    
+                                    var winbaseRev = baseCharge+wrT1+wrT2+wrT3;
+                                    document.getElementById("br").innerHTML = "$"+winbaseRev.toFixed(2);
+                                    var winfcr = kwh*0.042859;
+                                    document.getElementById("f.c.r").innerHTML = "$"+winfcr.toFixed(2);
+                                    var winDs = winbaseRev*0.015989;
+                                    document.getElementById("dsm").innerHTML = "$"+winDs.toFixed(2);
+                                    var winN = winbaseRev*0.041562;
+                                    document.getElementById("nccrr").innerHTML = "$"+winN.toFixed(2);
+                                    var winEC = winbaseRev*0.1628139;
+                                    document.getElementById("eccrr").innerHTML = "$"+winEC.toFixed(2);
+                                    var wintotrev = winbaseRev+winfcr+winDs+winN+winEC;
+                                    document.getElementById("tr").innerHTML = "$"+wintotrev.toFixed(2);
+                                    if(incity == true){
+                                        var winFF = wintotrev* 0.030674;
+                                        document.getElementById("fee").innerHTML = "$"+winFF.toFixed(2);
+                                        var wintot = winFF + wintotrev;
+                                        document.getElementById("tot").innerHTML = "$"+wintot.toFixed(2);
+                                        var winmtot = wintot + tax;
+                                        document.getElementById("maintot").innerHTML = "$"+winmtot.toFixed(2);
+                                        if (winmtot >500){
+                                            console.log("Link")
+                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
+                                        }
+                                    }
+                                    if(incity == false){
+                                        var winFF = wintotrev*0.011839;
+                                        document.getElementById("fee").innerHTML = "$"+winFF.toFixed(2);
+                                        var wintot = winFF + wintotrev;
+                                        document.getElementById("tot").innerHTML = "$"+wintot.toFixed(2);
+                                        var winmtot = wintot + tax;
+                                        document.getElementById("maintot").innerHTML = "$"+winmtot.toFixed(2);
+                                        if (winmtot >500){
+                                            console.log("Link")
+                                            window.open("https://www.georgiapower.com/residential/save-money-and-energy/products-programs.html");
+                                        }
+                                    }
+                                }
+                            }
+                        </script>
+
+                        <table class= "table table-dark table-striped text-wrap"style="width: 35rem; margin-left:auto; margin-right:auto;"><!--start of table-->
+                            <tr>
+                                <td>Items</td>
+                                <td>Fees</td>
+                            </tr>
+                            <tr>
+                                <td>Base charge: </td>
+                                <td><label id="bc">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Tier 1 Component (kWh): </td>
+                                <td><label id="t1">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Tier 2 Component (kWh):</td> 
+                                <td><label id="t2">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Tier 3 Component (kWh): </td>
+                                <td><label id="t3">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Base Revenue--Base Bill Subtotal: </td>
+                                <td><label id="br">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Fuel Cost rider: </td>
+                                <td><label id="f.c.r">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Demand Side Management Residential Rider: </td>
+                                <td><Label id="dsm">?</Label></td>
+                            </tr>
+                            <tr>
+                                <td>Nuclear Construction Cost Recovery Rider: </td>
+                                <td><label id="nccrr">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Environmental Compliance Cost Recovery Rider: </td>
+                                <td><label id="eccrr">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Total Revenue--Current Service Subtotal: </td>
+                                <td><label id="tr">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Franchise Fee: </td>
+                                <td><label id="fee">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>Total(excluding tax): </td>
+                                <td><label id="tot">?</label></td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL(w/tax): </td>
+                                <td><label id="maintot">?</label></td>
+                            </tr>
+                            </p>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
